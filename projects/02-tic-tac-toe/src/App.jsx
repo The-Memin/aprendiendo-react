@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState } from "react"
 import './App.css'
 import confetti from "canvas-confetti"
 import { Square } from "./components/Square.jsx"
@@ -24,7 +24,6 @@ function App() {
         setBoard(Array(9).fill(null));
         setTurn(TURNS.X);
         setWinner(null);
-
         resetGameStorage();
     }
 
