@@ -1,38 +1,49 @@
-export const checkWinnerFrom = (boardToCheck)=>{
-    
-    if (checkColumn(boardToCheck) || checkRow(boardToCheck)) {
-        return true;
-    }else{
-        return null;
-    }
-}
+export const checkWinnerFrom = (tablero, fila, columna)=>{
+    const ficha = tablero[fila][columna];
+    const alto = tablero.length;
+    const ancho = tablero[0].length;
 
-function checkColumn (board) {
-    for (let columna = 0; columna < board.length; columna++) {
-        const column = board[columna];
-         
-        for (let fila = 0; fila < column.length - 3; fila++) {
-            if (column[fila] != '' && column[fila] === column[fila + 1] && column[fila] === column[fila + 2] && column[fila] === column[fila + 3]) {
-                return true; // Se encontraron 4 elementos consecutivos iguales.
-            }
+    // Definir las direcciones posibles para buscar combinaciones ganadoras
+    const direcciones = [
+        [0, 1],     // Horizontal
+        [1, 0],     // Vertical
+        [1, 1],     // Diagonal hacia arriba
+        [1, -1]     // Diagonal hacia abajo
+    ];
+
+    // Función para verificar si hay una secuencia ganadora en una dirección específica
+    function verificarSecuencia(dx, dy) {
+        let count = 1; // Contador de fichas iguales consecutivas
+        let x = columna + dx;
+        let y = fila + dy;
+
+        // Verificar hacia adelante desde la ficha colocada
+        while (x >= 0 && x < ancho && y >= 0 && y < alto && tablero[y][x] === ficha) {
+            count++;
+            x += dx;
+            y += dy;
+        }
+
+        // Verificar hacia atrás desde la ficha colocada
+        x = columna - dx;
+        y = fila - dy;
+        while (x >= 0 && x < ancho && y >= 0 && y < alto && tablero[y][x] === ficha) {
+            count++;
+            x -= dx;
+            y -= dy;
+        }
+
+        // Si hay 4 o más fichas iguales consecutivas en una dirección, hay un ganador
+        return count >= 4;
+    }
+
+    // Verificar en cada dirección posible
+    for (let [dx, dy] of direcciones) {
+        if (verificarSecuencia(dx, dy)) {
+            return true; // Hay un ganador
         }
     }
-    return false; // No se encontraron 4 elementos consecutivos iguales
-}
 
-function checkRow(board) {
-    const column = board[0];
-    
-    for (let columna = 0; columna < board.length; columna++) {
-        for (let row = 0; row < column.length -3; row++) {
-            if (
-                   board[columna][row] != '' 
-                && board[columna][row] === board[columna+1][row]
-                && board[columna][row] === board[columna+2][row]
-                && board[columna][row] === board[columna+3][row]) {
-                return true; // Se encontraron 4 elementos consecutivos iguales.
-            }
-        }
-    }
-    return false;  
+    // Si no se encontraron combinaciones ganadoras en ninguna dirección, no hay ganador
+    return null;
 }

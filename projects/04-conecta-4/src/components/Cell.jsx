@@ -1,10 +1,9 @@
 
-export const Cell = ({cellClass, isSelected})=>{
-    const className = `circle ${cellClass} ` ;
-    const classNameCell = `cell ${isSelected ? 'is-selected': ''}` ;
+export const Cell = ({cell, isSelected, cellClass='', isNew= false})=>{
+
     return (
-        <div className= {classNameCell} >
-            <div className={className}>
+        <div  className = {`cell ${(isSelected)?'is-selected':''}`} >
+            <div className={`circle ${cell==0? 'circle-red':cell==1?'circle-blue':''} ${cellClass} ${isNew?'new-circle':''}`}>
 
             </div>
         </div>

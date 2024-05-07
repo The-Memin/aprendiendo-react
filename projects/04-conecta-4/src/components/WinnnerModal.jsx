@@ -12,7 +12,7 @@ export function WinnerModal({winner, resetGame, circle}){
                 </h2>
 
                 <header className="win">
-                    {winner && <Cell cellClass = {circle}></Cell>}
+                    {winner && <Cell cell = {circle}></Cell>}
                 </header>
 
                 <footer>

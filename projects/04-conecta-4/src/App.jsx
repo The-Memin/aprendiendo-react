@@ -1,47 +1,53 @@
 import { useState } from 'react'
-import './App.css'
 import { Column } from './components/Column'
 import { Cell } from './components/Cell';
 import { WinnerModal } from './components/WinnnerModal';
 import { checkWinnerFrom } from './logic/board';
 function App() {
     const TURNS = {
-        RED: 'circle-red', 
-        BLUE: 'circle-blue'
+        RED: 0, 
+        BLUE: 1
     }
     const [board, setBoard] = useState(()=>{
-        return Array(7).fill(Array(6).fill(''));
+        return Array(7).fill(Array(6).fill(null));
     });
-    const [turn, setTurn] = useState(()=>{
-        return TURNS.RED;
-    })
+    const [turn, setTurn] = useState(TURNS.RED)
     // null: no hay ganador, false es un empate
     const [winner, setWinner] = useState(null);
-
+    const [coordenadas,setCoordenadas ] = useState([null, null])
     const resetGame = () => {
-        setBoard(Array(7).fill(Array(6).fill('')));
+        setBoard(Array(7).fill(Array(6).fill(null)));
         setTurn(TURNS.RED);
         setWinner(null);
     }
     const updateBoard = (column, index) => {
+        
         const newColumn = [...column]
         const newBoard = [...board]
-        for(let i = newColumn.length-1; i >= 0 ; i--){
-            if (newColumn[i] === '') {
+        const x = index;
+        let y = 0;
+        let flagTurn = false;
+        for(let i = 0; i < newColumn.length ; i++){
+            if (newColumn[i] === null) {
                 newColumn[i] = turn;
+                y = i;
+                const newTurn = turn === TURNS.RED ? TURNS.BLUE : TURNS.RED;
+                setTurn(newTurn);
+                setCoordenadas([x,y])
+                newBoard[index] = newColumn;
+                setBoard(newBoard)
+                flagTurn= true;
                 break;
             }
         }
-        
-        // Cambiar el turno
-        const newTurn = turn === TURNS.RED ? TURNS.BLUE : TURNS.RED;
-        setTurn(newTurn);
-        
-        newBoard[index] = newColumn;
-        setBoard(newBoard)
+       
+        if (!flagTurn) {
+            alert('No se pueden realizar mas moviemientos en esta fila!')
+        }
 
         // revisar si hay ganador 
-        const newWinner = checkWinnerFrom(newBoard);
+        const newWinner = checkWinnerFrom(newBoard, x, y);
+        console.log("")
         setWinner(newWinner);
     }
     return (
@@ -52,7 +58,14 @@ function App() {
                     {
                         board.map((column, index)=>{
                             return (
-                                <Column key= {index} index={index} column = {column} updateBoard={updateBoard}> </Column> 
+                                <Column 
+                                    key= {index} 
+                                    index={index} 
+                                    column = {column} 
+                                    updateBoard={updateBoard}
+                                    coordenadas = {coordenadas}
+                                >
+                                </Column> 
                             )
                         })
                     }
