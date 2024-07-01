@@ -1,49 +1,54 @@
- import { useState, useEffect } from 'react'
 import './App.css'
 import { useMovies } from './hooks/useMovies'
+import { useSearch } from './hooks/useSearch'
 import { Movies } from './components/Movies'
+import { useCallback, useState } from 'react'
+import debounce from 'just-debounce-it'
 
 function App() {
-  const {movies} = useMovies();
-  const [query, setQuery] = useState('')
-  const [error, setError] = useState(null)
+  const [sort, setSort] = useState(false)
+  const {search, updateSearch, error} = useSearch();
+  const {movies, getMovies} = useMovies({search, sort });
+
+  const debouncedGetMovies = useCallback(
+    debounce(search =>{
+      getMovies({search})
+    },500)
+  ,[])
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(query)
+    getMovies({search});
+  }
+
+  const handleSort = () => {
+    setSort(!sort);
   }
 
   const handleChange = (event) => {
-    setQuery(event.target.value)
+    const newSearch = event.target.value
+    updateSearch(newSearch)
+    debouncedGetMovies(newSearch)
   }
-
-  useEffect(() => {
-
-    if (query === '') {
-      setError('No se puede buscar una película vacía')
-      return
-    }
-
-    if (query.match(/^\d+$/)) {
-      setError('No se puede buscar una película con un número')
-      return
-    }
-
-    if (query.length < 3) {
-      setError('La búsqueda debe tener al menos 3 caracteres')
-      return
-    }
-
-    setError(null)
-  }, [query])
-
+ 
   return (
     <div className='page'>
 
       <header>
         <h1>Buscador de películas</h1>
         <form className='form' onSubmit={handleSubmit}>
-          <input onChange={handleChange} name='query' placeholder='Avengers, Star Wars, The Matrix' type='text'/>
+          <input 
+          onChange={handleChange} 
+          value={search}
+          name='query' 
+          placeholder='Avengers, Star Wars, The Matrix' 
+          type='text'
+          style={{
+            border: '1px solid transparent',
+            borderColor: error ? 'red' : 'transparent'
+          }}
+          />
+          <input type="checkbox" onChange={handleSort} checked={sort} name="sort" id="" />
           <button  type='submit'>Buscar</button>
         </form>
         {error && <p style={{color: 'red'}} className='error'>{error}</p> }

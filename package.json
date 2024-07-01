@@ -12,7 +12,8 @@
   "dependencies": {
     "@gsap/react": "^2.1.1",
     "canvas-confetti": "1.9.0",
-    "gsap": "^3.12.5"
+    "gsap": "^3.12.5",
+    "just-debounce-it": "3.2.0"
   },
   "devDependencies": {
     "standard": "^17.1.0"
