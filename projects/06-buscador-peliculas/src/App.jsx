@@ -34,7 +34,7 @@ function App() {
   return (
     <div className='page'>
 
-      <header>
+      <header className='header'>
         <h1>Buscador de películas</h1>
         <form className='form' onSubmit={handleSubmit}>
           <input 
@@ -48,8 +48,11 @@ function App() {
             borderColor: error ? 'red' : 'transparent'
           }}
           />
-          <input type="checkbox" onChange={handleSort} checked={sort} name="sort" id="" />
           <button  type='submit'>Buscar</button>
+          <div className="sort">
+            <input type="checkbox" onChange={handleSort} checked={sort} name="sort" id="" />
+            <span>Order by name</span>
+          </div>
         </form>
         {error && <p style={{color: 'red'}} className='error'>{error}</p> }
       </header>
