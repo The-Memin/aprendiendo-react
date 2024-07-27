@@ -47,7 +47,7 @@ function App() {
 
         // revisar si hay ganador 
         const newWinner = checkWinnerFrom(newBoard, x, y);
-        console.log("")
+
         setWinner(newWinner);
     }
     return (
