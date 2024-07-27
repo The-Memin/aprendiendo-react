@@ -1,5 +1,5 @@
+//import './Filters.css'
 import { useId } from 'react'
-import './Filters.css'
 import { useFilters } from '../hooks/useFilters'
 
 export function Filters(){
@@ -23,9 +23,9 @@ export function Filters(){
     }
 
     return(
-        <section className="filters">
+        <section className="filters flex w-[100%] justify-between max-w-screen-lg">
              
-             <div>
+             <div className='flex gap-4'>
                 <label htmlFor="price">Price a partir de:</label>
                 <input
                     type="range" 
@@ -38,9 +38,9 @@ export function Filters(){
                 <span>$ {filters.minPrice}</span>
              </div>
 
-             <div>
-                <label htmlFor={categoryFilterId}>Categoria</label>
-                <select id={categoryFilterId} onChange={handleChangeCategory}>
+             <div className='flex gap-4'>
+                <label htmlFor={categoryFilterId}>Categoria:</label>
+                <select className='text-slate-800' id={categoryFilterId} onChange={handleChangeCategory}>
                     <option value="all">Todas</option>
                     <option value="laptops">Laptops</option>
                     <option value="motorcycle">Motocicletas</option>
