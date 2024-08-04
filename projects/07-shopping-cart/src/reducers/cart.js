@@ -4,7 +4,8 @@ export const CART_ACTION_TYPES = {
     ADD_TO_CART: 'ADD_TO_CART',
     REMOVE_FROM_CART: 'REMOVE_FROM_CART',
     CLEAR_CART: 'CLEAR_CART',
-}
+    DISCOUNT_FROM_CART: 'DISCOUNT_FROM_CART',
+} 
 
 // update localStorage with state for cart
 export const updateLocalStorage = state =>{
@@ -55,6 +56,26 @@ const UPDATE_STATE_BY_ACTION = {
       updateLocalStorage(newState)
       return newState
     },
+
+    [CART_ACTION_TYPES.DISCOUNT_FROM_CART]:(state, action) => {
+      const {id} = action.payload;
+      const productInCartIndex = state.findIndex(item => item.id === id)
+      if (productInCartIndex >= 0 && state[productInCartIndex].quantity > 0) {
+        //👀 una forma sería usando structuredClone
+        let newState = structuredClone(state)
+        newState[productInCartIndex].quantity -= 1
+        
+        if (newState[productInCartIndex].quantity === 0) {
+          newState = state.filter(item => item.id !== id)
+          updateLocalStorage(newState)
+          return newState
+        }
+
+        updateLocalStorage(newState)
+        return newState
+      }
+    },
+
     [CART_ACTION_TYPES.REMOVE_FROM_CART]: (state, action) => {
       const { id } = action.payload
       const newState = state.filter(item => item.id !== id)

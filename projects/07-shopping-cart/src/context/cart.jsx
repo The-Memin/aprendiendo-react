@@ -5,14 +5,15 @@ export const CartContext = createContext()
 
 //Crear provider
 export function CartProvider({ children }) {
-    const {state, addToCart, removeFromCart, clearCart} = useCartReducer();
+    const {state, addToCart, removeFromCart, clearCart, discountFromCart} = useCartReducer();
 
     return(
         <CartContext.Provider value={{
             cart: state,
             addToCart,
             removeFromCart,
-            clearCart
+            clearCart,
+            discountFromCart
         }}>
             {children}
         </CartContext.Provider>

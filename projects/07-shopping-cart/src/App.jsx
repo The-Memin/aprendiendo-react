@@ -15,7 +15,7 @@ function App() {
     const {theme, toggleTheme} = useTheme()
     
     return (
-        <div className={`${theme === 'light' ? 'bg-light-background text-light-text' : 'bg-dark-background text-dark-text'} flex flex-col items-center transition ease-in min-h-screen `}>
+        <div className={`${theme === 'light' ? 'bg-light-background text-light-text' : 'bg-dark-background text-dark-text'} flex flex-col items-center transition ease-in min-h-screen  `}>
             <div className="w-full flex flex-col items-center">
                 <CartProvider>
                     <Header/>

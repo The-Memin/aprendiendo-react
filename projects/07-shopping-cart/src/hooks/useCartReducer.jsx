@@ -18,5 +18,10 @@ export function useCartReducer(){
         type:'CLEAR_CART'
     })
 
-    return{state, addToCart, removeFromCart, clearCart}
+    const discountFromCart = product => dispatch({
+        type:'DISCOUNT_FROM_CART',
+        payload: product,
+    })
+
+    return{state, addToCart, removeFromCart, clearCart, discountFromCart}
 }
