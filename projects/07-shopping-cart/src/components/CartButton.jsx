@@ -1,6 +1,10 @@
 import { useCart } from "../hooks/useCart"
-export function CartButton({index= -1, product, isProductInCart}){
-    const {addToCart, removeFromCart} = useCart()
+export function CartButton({index= -1, product}){
+    const {addToCart, removeFromCart, cart} = useCart()
+    const checkProductInCart = product => {
+        return cart.some(item => item.id === product.id)
+    }
+    const isProductInCart = checkProductInCart(product)
     return(
         <button 
             onClick={() => {

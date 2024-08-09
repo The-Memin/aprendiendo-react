@@ -1,18 +1,14 @@
-import {products as initialProducts} from './mocks/products.json'
-import { Products } from './components/Products'
+import { Catalogue } from './components/Catalogue'
 import { Header } from './components/Header'
 import { Footer } from './components/Footer'
 import { Cart } from './components/Cart'
-import { useFilters } from './hooks/useFilters'
 import { IS_DEVELOPMENT } from './config'
 import { CartProvider } from './context/cart'
 import { useTheme } from './hooks/useTheme'
 
 
 function App() {
-    const {filters, filterProducts} = useFilters()
-    const filteredProducts = filterProducts(initialProducts)
-    const {theme, toggleTheme} = useTheme()
+    const {theme} = useTheme()
     
     return (
         <div className={`${theme === 'light' ? 'bg-light-background text-light-text' : 'bg-dark-background text-dark-text'} flex flex-col items-center transition ease-in min-h-screen  `}>
@@ -20,7 +16,7 @@ function App() {
                 <CartProvider>
                     <Header/>
                     <Cart/>
-                    <Products/>
+                    <Catalogue/>
                     {IS_DEVELOPMENT && <Footer/>}
                 </CartProvider>
             </div>
