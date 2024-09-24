@@ -28,7 +28,7 @@ export function Products({categories}){
     };
 
     return(
-        <main className={`products max-w-screen-lg my-20 flex flex-col gap-10 px-5 md:p-0`}>
+        <main className={`products max-w-lg md:max-w-3xl lg:max-w-screen-lg my-20 flex flex-col gap-10 px-5 md:p-0`}>
             <Link to={'/'}>
                 <button className={`w-fit py-2 pl-4 pr-5 bg-blue-500 text-white rounded hover:bg-blue-600 transition`}>
                     <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />

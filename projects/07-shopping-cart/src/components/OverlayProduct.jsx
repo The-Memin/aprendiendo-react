@@ -27,7 +27,7 @@ export function OverlayProduct({productSelect, closeModal}) {
         <section className={`fixed w-full h-full left-0 top-0 bg-opacity-40 grid place-items-center
             ${theme === Theme.LIGHT ? 'bg-slate-200':'bg-stone-900'}
             `}>
-                <div className={`flex flex-col lg:flex-row border items-stretch px-8 lg:pr-[5em] 2xl:px-10 2xl:pr-[7em] py-10 gap-10 2xl:gap-20 max-w-screen-xl min-h-[60vh] h-[35rem] overflow-scroll md:overflow-hidden md:h-fit w-fit rounded-md relative
+                <div className={`flex flex-col lg:flex-row border items-stretch px-8 lg:pr-[5em] 2xl:px-10 2xl:pr-[7em] py-10 gap-10 2xl:gap-20 max-w-md md:max-w-screen-xl min-h-[60vh] h-[35rem] overflow-scroll md:overflow-hidden md:h-fit w-[90%] md:w-fit rounded-md relative
                     ${theme=== Theme.LIGHT?'bg-light-background border-neutral-300':'bg-dark-background border-neutral-500'}
                     `}>
                     <span onClick={closeModal} className={`cross-exit ${theme===Theme.LIGHT?'after:bg-darked before:bg-darked':'after:bg-white before:bg-white hover:after:bg-slate-300 hover:before:bg-slate-300'} absolute top-6 right-7`}></span>
