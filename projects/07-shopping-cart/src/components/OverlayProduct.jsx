@@ -27,35 +27,35 @@ export function OverlayProduct({productSelect, closeModal}) {
         <section className={`fixed w-full h-full left-0 top-0 bg-opacity-40 grid place-items-center
             ${theme === Theme.LIGHT ? 'bg-slate-200':'bg-stone-900'}
             `}>
-                <div className={`flex border items-stretch px-8 pr-[5em] 2xl:px-10 2xl:pr-[7em] py-10 gap-10 2xl:gap-20 max-w-screen-xl min-h-[60vh] h-fit w-fit rounded-md relative
+                <div className={`flex flex-col lg:flex-row border items-stretch px-8 lg:pr-[5em] 2xl:px-10 2xl:pr-[7em] py-10 gap-10 2xl:gap-20 max-w-screen-xl min-h-[60vh] h-[35rem] overflow-scroll md:overflow-hidden md:h-fit w-fit rounded-md relative
                     ${theme=== Theme.LIGHT?'bg-light-background border-neutral-300':'bg-dark-background border-neutral-500'}
                     `}>
                     <span onClick={closeModal} className={`cross-exit ${theme===Theme.LIGHT?'after:bg-darked before:bg-darked':'after:bg-white before:bg-white hover:after:bg-slate-300 hover:before:bg-slate-300'} absolute top-6 right-7`}></span>
     
-                    <div className="flex gap-4">
-                        <ul className="flex flex-col max-w-[4.5em] gap-2 overflow-hidden">
+                    <div className="flex flex-col-reverse items-center lg:items-start lg:flex-row gap-4">
+                        <ul className="flex lg:flex-col gap-2 overflow-hidden">
                             {
                                 productSelect.images.map((img, index)=>{
                                     return(
-                                        <img 
-                                            key={`small+${index}`} 
-                                            onMouseEnter={changeImg} 
-                                            onMouseLeave={(event)=>{
-                                                event.target.classList.add('border-sky-600');
-                                            }} 
-                                            className="img-small border border-neutral-500 rounded-md aspect-square object-contain hover:border-sky-600 hover:border-2 cursor-pointer p-1 min-w-[3em]" src={img}>
-                                        </img>
+                                        <li key={`small+${index}`}  className="max-w-[3em] lg:max-w-[4.5em]">
+                                            <img 
+                                                onMouseEnter={changeImg} 
+                                                onMouseLeave={(event)=>{
+                                                    event.target.classList.add('border-sky-600');
+                                                }} 
+                                                className="img-small border border-neutral-500 rounded-md aspect-square object-contain hover:border-sky-600 hover:border-2 cursor-pointer p-1 min-w-[3em]" src={img}>
+                                            </img>
+                                        </li>
                                     )
                                 })
                             }
                         </ul>
-                        <div className="min-w-[20em] max-w-[22em] w-[40vh] relative overflow-hidden">
+                        <div className="w-[10em] lg:min-w-[20em] lg:max-w-[22em] lg:w-[40vh] relative overflow-hidden">
                             <img ref={imgRef} src={productSelect.thumbnail} alt="" className="h-full w-full object-contain aspect-square "/>
-                            
                         </div>
                     </div>
     
-                    <article className="h-full flex flex-col gap-4">
+                    <article className="h-full grid grid-cols-1 md:grid-cols-2 gap-x-12 lg:flex flex-col gap-4">
                         <div className="flex flex-col gap-1">
                             <span className="text-neutral-400 text-sm">{productSelect.warrantyInformation}</span>
                             <h1 className="text-2xl font-semibold">{productSelect.title}</h1>
